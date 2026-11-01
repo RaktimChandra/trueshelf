@@ -48,3 +48,18 @@ def test_review_decision_is_logged():
 
 def test_static_ui_served():
     assert "TrueShelf" in client.get("/").text
+
+
+def test_security_headers_on_ui_and_api():
+    for path in ("/", "/api/health", "/api/search?city=DXB&limit=1"):
+        h = client.get(path).headers
+        assert h["x-content-type-options"] == "nosniff"
+        assert h["x-frame-options"] == "DENY"
+        assert "frame-ancestors 'none'" in h["content-security-policy"]
+        assert h["cross-origin-resource-policy"] == "same-origin"
+        assert "permissions-policy" in h
+
+
+def test_ui_has_no_third_party_requests():
+    html = client.get("/").text
+    assert "fonts.googleapis.com" not in html and "fonts.css" in html

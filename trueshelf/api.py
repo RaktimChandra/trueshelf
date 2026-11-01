@@ -26,6 +26,38 @@ DECISIONS = ROOT / "data" / "review_decisions.jsonl"
 app = FastAPI(title="TrueShelf", version=DEFAULT.version,
               description="Multi-supplier hotel & sightseeing consolidation, like-for-like pricing and ranking.")
 
+# Security headers on every response (found missing by the OWASP ZAP scan in CI).
+# The UI loads only its own files (fonts are self-hosted), so the policy can be strict.
+_CSP_UI = ("default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; "
+           "font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'")
+# FastAPI's interactive /docs page loads Swagger UI from a CDN, so it gets its own, looser policy.
+_CSP_DOCS = ("default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; "
+             "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https://fastapi.tiangolo.com; "
+             "object-src 'none'; base-uri 'self'; frame-ancestors 'none'")
+SECURITY_HEADERS = {
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "DENY",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
+    "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=(), usb=()",
+    "Cross-Origin-Opener-Policy": "same-origin",
+    "Cross-Origin-Resource-Policy": "same-origin",
+    "Cross-Origin-Embedder-Policy": "require-corp",
+}
+
+
+@app.middleware("http")
+async def security_headers(request, call_next):
+    response = await call_next(request)
+    docs = request.url.path in ("/docs", "/redoc", "/docs/oauth2-redirect")
+    for k, v in SECURITY_HEADERS.items():
+        if docs and k == "Cross-Origin-Embedder-Policy":
+            continue  # the CDN-hosted Swagger UI assets do not send CORP headers
+        response.headers.setdefault(k, v)
+    response.headers.setdefault("Content-Security-Policy", _CSP_DOCS if docs else _CSP_UI)
+    if request.url.path.startswith("/api/"):
+        response.headers.setdefault("Cache-Control", "no-store")
+    return response
+
 
 @lru_cache(maxsize=1)
 def state() -> dict:
