@@ -1,0 +1,171 @@
+{
+  "DXB": {
+    "auto": {
+      "precision": 1.0,
+      "recall": 0.9973753280839895,
+      "f1": 0.9986859395532194,
+      "pred_pairs": 760,
+      "true_pairs": 762,
+      "tp": 760,
+      "false_merges": 0,
+      "missed_merges": 2
+    },
+    "auto_exact": 0.9952153110047847,
+    "with_review": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "pred_pairs": 762,
+      "true_pairs": 762,
+      "tp": 762,
+      "false_merges": 0,
+      "missed_merges": 0
+    },
+    "with_review_exact": 1.0,
+    "baseline": {
+      "precision": 0.9037520391517129,
+      "recall": 0.7270341207349081,
+      "f1": 0.8058181818181819,
+      "pred_pairs": 613,
+      "true_pairs": 762,
+      "tp": 554,
+      "false_merges": 59,
+      "missed_merges": 208
+    },
+    "baseline_exact": 0.5550239234449761,
+    "listings": {
+      "raw_records": 651,
+      "predicted_listings": 210,
+      "true_hotels": 209
+    },
+    "baseline_listings": 299,
+    "review_pairs": 23,
+    "candidate_pairs": 42414,
+    "blocking_recall": 1.0,
+    "coords_repaired": 2
+  },
+  "BKK": {
+    "auto": {
+      "precision": 0.9956395348837209,
+      "recall": 0.9898843930635838,
+      "f1": 0.9927536231884058,
+      "pred_pairs": 688,
+      "true_pairs": 692,
+      "tp": 685,
+      "false_merges": 3,
+      "missed_merges": 7
+    },
+    "auto_exact": 0.9747474747474747,
+    "with_review": {
+      "precision": 0.9956709956709957,
+      "recall": 0.9971098265895953,
+      "f1": 0.996389891696751,
+      "pred_pairs": 693,
+      "true_pairs": 692,
+      "tp": 690,
+      "false_merges": 3,
+      "missed_merges": 2
+    },
+    "with_review_exact": 0.98989898989899,
+    "baseline": {
+      "precision": 0.9120654396728016,
+      "recall": 0.6445086705202312,
+      "f1": 0.7552921253175274,
+      "pred_pairs": 489,
+      "true_pairs": 692,
+      "tp": 446,
+      "false_merges": 43,
+      "missed_merges": 246
+    },
+    "baseline_exact": 0.4595959595959596,
+    "listings": {
+      "raw_records": 605,
+      "predicted_listings": 201,
+      "true_hotels": 198
+    },
+    "baseline_listings": 305,
+    "review_pairs": 13,
+    "candidate_pairs": 37835,
+    "blocking_recall": 1.0,
+    "coords_repaired": 3
+  },
+  "PAR": {
+    "auto": {
+      "precision": 1.0,
+      "recall": 0.9910179640718563,
+      "f1": 0.9954887218045112,
+      "pred_pairs": 331,
+      "true_pairs": 334,
+      "tp": 331,
+      "false_merges": 0,
+      "missed_merges": 3
+    },
+    "auto_exact": 0.9880239520958084,
+    "with_review": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "pred_pairs": 334,
+      "true_pairs": 334,
+      "tp": 334,
+      "false_merges": 0,
+      "missed_merges": 0
+    },
+    "with_review_exact": 1.0,
+    "baseline": {
+      "precision": 0.8947368421052632,
+      "recall": 0.7634730538922155,
+      "f1": 0.8239095315024232,
+      "pred_pairs": 285,
+      "true_pairs": 334,
+      "tp": 255,
+      "false_merges": 30,
+      "missed_merges": 79
+    },
+    "baseline_exact": 0.6287425149700598,
+    "listings": {
+      "raw_records": 401,
+      "predicted_listings": 169,
+      "true_hotels": 167
+    },
+    "baseline_listings": 211,
+    "review_pairs": 3,
+    "candidate_pairs": 21851,
+    "blocking_recall": 1.0,
+    "coords_repaired": 0
+  },
+  "rooms": {
+    "precision": 0.9996501661710687,
+    "recall": 0.9918431100312392,
+    "f1": 0.9957313354821848,
+    "pred_pairs": 5717,
+    "true_pairs": 5762,
+    "tp": 5715,
+    "false_merges": 2,
+    "missed_merges": 47
+  },
+  "sightseeing": {
+    "variant_pairs": {
+      "precision": 1.0,
+      "recall": 0.9914529914529915,
+      "f1": 0.9957081545064378,
+      "pred_pairs": 116,
+      "true_pairs": 117,
+      "tp": 116,
+      "false_merges": 0,
+      "missed_merges": 1
+    },
+    "attraction_accuracy": 1.0,
+    "products": 184,
+    "shelves": 92
+  },
+  "runtime_s": {
+    "matching_all_cities": 11.18,
+    "total": 13.74
+  },
+  "world": {
+    "hotels": 580,
+    "supplier_hotel_records": 1657,
+    "supplier_room_records": 6230
+  }
+}
