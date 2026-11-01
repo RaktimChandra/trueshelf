@@ -6,7 +6,7 @@
 Team **vortexxx** (Raktim Chandra, Nipun Dewangan, Pronov Mazumdar) · TBO VoyageHack 4.0 · Track: *Multi-Supplier Optimization*
 
 **Proof page** (live prototype, walkthrough, all tests, and our evaluation re-run in your browser): https://raktimchandra.github.io/trueshelf/
-· Round 1 deck: [`submission/`](submission/) · What is *not* built yet: [**ROADMAP.md**](ROADMAP.md)
+· Round 1 deck: [`submission/`](submission/) · What is *not* built yet: [**ROADMAP.md**](ROADMAP.md) · Execution plan: [PLAN.md](PLAN.md)
 
 > **Status, in one line:** the engine, held-out evaluation, 36 tests, prototype and API are built and working on **synthetic data**.
 > Content/image enrichment, sightseeing ranking, learned ranking and a real-data pilot are **coming soon**; see the roadmap.
@@ -54,12 +54,12 @@ python scripts/build_data.py           # runs the engine, writes web/data.js (~1
 open web/index.html                    # the full UI works as a static page
 # or serve UI + API:
 uvicorn trueshelf.api:app --port 8000  # http://localhost:8000  ·  API docs at /docs
-python -m pytest -q                    # 36 tests, ~1 min
+python -m pytest -q                    # 38 tests, ~1 min
 python scripts/stress_test.py          # unseen room style + throughput
 docker build -t trueshelf . && docker run -p 8000:8000 trueshelf   # same, containerised
 ```
 
-CI runs the full test suite and the stress test on every push.
+CI runs the full test suite and the stress test on every push, plus a free OWASP ZAP security scan of the API and UI.
 
 ### API
 

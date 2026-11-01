@@ -1,5 +1,7 @@
 # Roadmap: what is built, what is not, what is next
 
+The step-by-step execution plan with acceptance checks is in [PLAN.md](PLAN.md).
+
 This page is deliberately blunt. Everything marked **Built** runs and is tested.
 Everything marked **Coming soon** is not built yet, however it is described elsewhere.
 
@@ -36,6 +38,9 @@ Everything marked **Coming soon** is not built yet, however it is described else
 - [ ] **Persistent storage**: mapping table and review decisions in Postgres (review decisions are a JSONL file today).
 - [ ] **Incremental re-mapping** when one supplier's feed changes (designed in `docs/ARCHITECTURE.md`, not built).
 - [ ] **Authentication and roles** on the Review Desk and API.
+- [x] Free OWASP ZAP security scan in CI; security headers and self-hosted fonts (12 findings → 2, none High).
+- [ ] **Security to zero**: remove inline styles from the UI (CSP), JSON on every API error, plus CodeQL, Bandit, pip-audit.
+- [ ] **Prototype on phones**: the proof page is fixed; the prototype still overflows on small screens.
 - [ ] **Live supplier adapters** for TBO's real hotel and sightseeing APIs.
 
 ### Submission
