@@ -1,0 +1,52 @@
+name: security (OWASP ZAP, free)
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  zap:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: Build data and start the API + UI
+        run: |
+          python scripts/build_data.py
+          nohup uvicorn trueshelf.api:app --host 0.0.0.0 --port 8000 > api.log 2>&1 &
+          for i in $(seq 1 90); do curl -sf http://localhost:8000/api/health && break; sleep 2; done
+      - name: ZAP API scan (every endpoint from the OpenAPI spec)
+        run: |
+          mkdir -p zap && chmod 777 zap
+          docker run --rm --network host -v "$PWD/zap:/zap/wrk:rw" ghcr.io/zaproxy/zaproxy:stable \
+            zap-api-scan.py -t http://localhost:8000/openapi.json -f openapi -J api.json -r api.html -I
+      - name: ZAP baseline scan (web UI)
+        run: |
+          docker run --rm --network host -v "$PWD/zap:/zap/wrk:rw" ghcr.io/zaproxy/zaproxy:stable \
+            zap-baseline.py -t http://localhost:8000/ -J ui.json -r ui.html -I
+      - name: Publish findings as annotations
+        if: always()
+        run: |
+          python - <<'PY'
+          import json, os
+          total = 0
+          for name in ("api", "ui"):
+              p = f"zap/{name}.json"
+              if not os.path.exists(p):
+                  print(f"::error::ZAP {name} report missing"); continue
+              for site in json.load(open(p)).get("site", []):
+                  for a in site.get("alerts", []):
+                      risk = a.get("riskdesc", "").split(" ")[0]
+                      if risk in ("High", "Medium", "Low"):
+                          total += 1
+                          lvl = "error" if risk == "High" else "warning"
+                          print(f"::{lvl} title=ZAP {name} {risk}::{a['name']} (plugin {a['pluginid']}, {a.get('count', '?')} instance(s))")
+          print(f"::notice title=ZAP summary::{total} High/Medium/Low findings")
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: zap-reports
+          path: zap/
