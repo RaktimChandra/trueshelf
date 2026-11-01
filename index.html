@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TrueShelf: proof of work · team vortexxx · VoyageHack 4.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#13202a;--ink2:#3b4954;--ink3:#6b7680;--paper:#f5f2ec;--card:#fffdf9;--line:#e2dccf;--line2:#ece7dc;--acc:#d9481c;--accs:#fbe6dc;--good:#0f7a63;--goods:#dcf0e9;--warn:#a86a10;--warns:#f8ecd2;--bad:#b3261e;--bads:#f7dedb;
+--serif:"Fraunces",Georgia,serif;--sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--ink)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.mono{font-family:var(--mono);font-feature-settings:"tnum"}
+header.hero{background:var(--ink);color:#f3efe6;padding:54px 0 46px}
+.kicker{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#a9b3ba;font-weight:600}
+.hero h1{font-family:var(--serif);font-size:56px;line-height:1.05;margin:14px 0 12px;letter-spacing:-.8px}
+.hero p.lede{font-size:20px;color:#dcd6ca;max-width:720px;margin:0 0 26px}
+.cta{display:flex;gap:10px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:9px;padding:11px 16px;font-weight:600;font-size:14.5px;text-decoration:none;border:1px solid transparent;cursor:pointer;font-family:inherit}
+.btn.pri{background:#e8633a;color:#fff}.btn.sec{background:transparent;color:#f3efe6;border-color:#3a4f60}
+.btn.dark{background:var(--ink);color:#fff}.btn.ghost{background:transparent;border-color:var(--line);color:var(--ink)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#2b3d4b;border:1px solid #2b3d4b;border-radius:12px;overflow:hidden;margin-top:36px}
+.stats div{background:#182833;padding:16px 18px}
+.stats b{display:block;font-family:var(--mono);font-size:24px;color:#fff;letter-spacing:-.5px}
+.stats span{font-size:12.5px;color:#a9b3ba}
+.top-qr{float:right;background:#fff;border-radius:10px;padding:8px;margin-left:24px;text-align:center}
+.top-qr img{display:block;width:118px;height:118px}.top-qr small{font-size:10.5px;color:var(--ink3)}
+nav.toc{position:sticky;top:0;z-index:10;background:rgba(245,242,236,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+nav.toc .wrap{display:flex;gap:4px;overflow:auto;padding-top:8px;padding-bottom:8px}
+nav.toc a{text-decoration:none;font-size:13.5px;color:var(--ink2);padding:6px 10px;border-radius:7px;white-space:nowrap}
+nav.toc a:hover{background:#ebe5d9}
+section{padding:46px 0 10px}
+h2{font-family:var(--serif);font-size:32px;margin:0 0 6px;letter-spacing:-.4px}
+.sub{color:var(--ink3);margin:0 0 20px;max-width:800px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink3);font-weight:600;padding:8px 10px;border-bottom:1px solid var(--line);background:#fcfaf6}
+td{padding:8px 10px;border-bottom:1px solid var(--line2)}tr:last-child td{border-bottom:0}
+.r{text-align:right}
+.pill{display:inline-block;font-size:12px;padding:2px 9px;border-radius:999px;border:1px solid var(--line);background:#faf7f1}
+.pill.ok{background:var(--goods);border-color:#b9e0d3;color:#0a5444}.pill.bad{background:var(--bads);border-color:#f0c2bd;color:#8a1c16}.pill.warn{background:var(--warns);border-color:#efd9a8;color:#6b4507}
+/* verify */
+.verify{display:grid;grid-template-columns:1.05fr 1fr;gap:16px;align-items:start}
+.steps{list-style:none;margin:0;padding:0}
+.steps li{display:grid;grid-template-columns:26px 1fr auto;gap:10px;align-items:start;padding:9px 0;border-bottom:1px solid var(--line2)}
+.steps li:last-child{border-bottom:0}
+.dot{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;margin-top:1px}
+.dot.run{border-color:var(--acc);border-top-color:transparent;animation:spin 1s linear infinite}
+.dot.ok{background:var(--good);border-color:var(--good)}.dot.err{background:var(--bad);border-color:var(--bad)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.steps .t{font-weight:600;font-size:14.5px}.steps .d{font-size:13px;color:var(--ink3)}
+.steps .s{font-family:var(--mono);font-size:12.5px;color:var(--ink3);white-space:nowrap}
+.console{background:#0f1a22;color:#cfe3da;font-family:var(--mono);font-size:12px;line-height:1.5;border-radius:10px;padding:12px 14px;height:250px;overflow:auto;white-space:pre-wrap}
+.cmp td b{font-family:var(--mono)}
+.match-form{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.match-form fieldset{border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:0}
+.match-form legend{font-size:12px;font-weight:600;color:var(--ink3);text-transform:uppercase;letter-spacing:.07em;padding:0 4px}
+.match-form label{display:block;font-size:12px;color:var(--ink3);margin-top:6px}
+.match-form input{width:100%;font:14px var(--mono);padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:#fff}
+.pbar{height:12px;background:#ece7dc;border-radius:6px;overflow:hidden;margin:8px 0}.pbar i{display:block;height:100%;background:var(--good);transition:width .5s}
+.why div{display:grid;grid-template-columns:1fr 60px;font-size:13px;padding:2px 0}
+.note{font-size:13px;color:var(--ink3)}
+.slides{display:grid;grid-template-columns:1fr 1fr;gap:14px}.slides img{width:100%;border-radius:8px;border:1px solid var(--line);display:block;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+video{width:100%;border-radius:12px;background:#000;display:block}
+.bug{display:grid;grid-template-columns:150px 1fr;gap:18px;padding:16px 0;border-bottom:1px solid var(--line2)}.bug:last-child{border-bottom:0}
+.bug .k{font-family:var(--mono);font-size:12px;color:var(--acc);font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+.bug h4{margin:0 0 4px;font-size:16px}.bug p{margin:0;color:var(--ink2);font-size:14.5px}
+.ba{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+pre{background:#0f1a22;color:#e6efe9;font-family:var(--mono);font-size:13px;padding:14px 16px;border-radius:10px;overflow:auto;margin:0}
+.files{display:grid;grid-template-columns:260px 1fr;gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;height:520px}
+.files .list{overflow:auto;background:#fcfaf6;border-right:1px solid var(--line);font-family:var(--mono);font-size:12.5px}
+.files .list button{display:block;width:100%;text-align:left;border:0;background:none;padding:5px 12px;cursor:pointer;font:inherit;color:var(--ink2)}
+.files .list button.on{background:#ebe5d9;color:var(--ink);font-weight:600}
+.files pre{border-radius:0;height:100%;font-size:12px}
+footer{background:var(--ink);color:#a9b3ba;margin-top:60px;padding:40px 0}
+footer .wrap{display:flex;gap:28px;align-items:center;flex-wrap:wrap}
+footer b{color:#fff}
+@media(max-width:860px){.stats{grid-template-columns:1fr 1fr}.verify,.grid2,.grid3,.slides,.match-form,.files{grid-template-columns:1fr}.hero h1{font-size:40px}.top-qr{display:none}.bug{grid-template-columns:1fr}.files{height:auto}.files .list{max-height:180px}}
+</style>
+</head>
+<body>
+<header class="hero"><div class="wrap">
+  <div class="top-qr"><img src="qr.svg" alt="QR code linking to this page"><small>this page</small></div>
+  <div class="kicker">TBO VoyageHack 4.0 · Multi-Supplier Optimization · team vortexxx</div>
+  <h1>TrueShelf: the proof</h1>
+  <p class="lede">Most idea decks ask you to trust a slide. This page lets you check ours. Every number comes from code you can read here, and the key result re-runs inside your own browser.</p>
+  <div class="cta">
+    <a class="btn pri" href="#verify">Re-run our evaluation in your browser</a>
+    <a class="btn sec" href="app.html">Open the live prototype</a>
+    <a class="btn sec" href="#video">Watch the 5-min walkthrough</a>
+    <a class="btn sec" href="#code">Read the code</a>
+  </div>
+  <div class="stats">
+    <div><b>0.996 <span style="font-size:15px;color:#a9b3ba">vs 0.795</span></b><span>hotel-matching F1, held-out, vs the usual name + distance rule</span></div>
+    <div><b>36 / 36</b><span>automated tests pass, including browser ↔ engine parity</span></div>
+    <div><b>39 of 102,100</b><span>candidate pairs needed a person (0.04%)</span></div>
+    <div><b>0</b><span>wrong room merges on a supplier style the system had never seen</span></div>
+  </div>
+</div></header>
+<nav class="toc"><div class="wrap">
+  <a href="#verify">Verify it yourself</a><a href="#video">Walkthrough</a><a href="#deck">Deck</a><a href="#tests">Tests</a><a href="#eval">Evaluation</a><a href="#bugs">Bugs our tests caught</a><a href="#repro">Reproduce</a><a href="#code">Code</a><a href="#limits">Honest limits</a>
+</div></nav>
+
+<main class="wrap">
+<section id="verify">
+  <h2>Don't trust us. Run it.</h2>
+  <p class="sub">The button below downloads a Python runtime (Pyodide, about 35 MB, once) into this tab and runs our actual code. There is no server behind it and nothing is precomputed. It regenerates the synthetic supplier feeds from their seeds, computes 102,100 pair features, trains the matcher on Dubai + Bangkok, and scores Paris, a city the model never saw. Expect 1–3 minutes on a laptop; the tab may pause briefly during heavy steps.</p>
+  <div class="verify">
+    <div class="card">
+      <ol class="steps" id="steps"></ol>
+      <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap"><button class="btn dark" id="runAll">Run everything</button><button class="btn ghost" id="runTests">Only the 19 unit tests</button></div>
+    </div>
+    <div>
+      <div class="card" id="resultCard" style="margin-bottom:12px">
+        <b>Your browser vs our report</b>
+        <table class="cmp" style="margin-top:8px"><thead><tr><th>Paris (held out)</th><th class="r">We reported</th><th class="r">Your browser</th><th></th></tr></thead><tbody id="cmpBody"></tbody></table>
+        <div class="note" id="envLine" style="margin-top:8px">Not run yet.</div>
+      </div>
+      <div class="console" id="console">Ready. Press “Run everything”.</div>
+    </div>
+  </div>
+  <div class="card" id="matcher" style="margin-top:16px;opacity:.55">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px"><div><b style="font-size:17px">Try the matcher on your own pair</b><div class="note">Unlocks after training. Uses the model your browser just trained.</div></div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap" id="presets"></div></div>
+    <div class="match-form" style="margin-top:12px"><fieldset id="fa"><legend>Supplier record A</legend></fieldset><fieldset id="fb"><legend>Supplier record B</legend></fieldset></div>
+    <div style="display:flex;gap:16px;align-items:center;margin-top:12px;flex-wrap:wrap"><button class="btn dark" id="matchBtn" disabled>Same hotel?</button><div id="matchOut" style="flex:1;min-width:260px"></div></div>
+  </div>
+  <p class="note" style="margin-top:12px">Why this is faithful: the browser can't run RapidFuzz's compiled C++ core, so it uses RapidFuzz's own pure-Python implementation. We checked that the two produce <b>identical features on all 21,851 Paris pairs (max difference 0.0)</b>, and that scikit-learn 1.8 (the browser's version) reproduces our Paris F1 exactly. If your browser blocks the download, the same result comes from <code>python scripts/build_data.py</code> (see Reproduce).</p>
+</section>
+
+<section id="video">
+  <h2>Five-minute walkthrough</h2>
+  <p class="sub">The prototype, screen by screen, with narration. Every screen shown is live in the prototype.</p>
+  <video controls preload="metadata" src="video.mp4" poster="slide-1.png"></video>
+</section>
+
+<section id="deck">
+  <h2>Round 1 deck</h2>
+  <p class="sub">Cover, two content slides (problem, solution and innovation; impact, feasibility and adoption risk), and close.</p>
+  <div class="slides"><img src="slide-1.png" alt="Slide 1"><img src="slide-2.png" alt="Slide 2"><img src="slide-3.png" alt="Slide 3"><img src="slide-4.png" alt="Slide 4"></div>
+</section>
+
+<section id="tests">
+  <h2>The test suite</h2>
+  <p class="sub" id="testSub"></p>
+  <div class="grid3" id="testGroups"></div>
+</section>
+
+<section id="eval">
+  <h2>Evaluation</h2>
+  <p class="sub">Leave-one-city-out: each city is scored by a model trained only on the other two. Ground truth lives only in the synthetic world and never reaches the engine.</p>
+  <div class="card" style="overflow:auto"><table><thead><tr><th>City</th><th class="r">Supplier records</th><th class="r">Real hotels</th><th class="r">TrueShelf F1</th><th class="r">Precision</th><th class="r">Wrong merges</th><th class="r">Rule baseline F1</th><th class="r">Rule wrong merges</th><th class="r">Sent to review</th></tr></thead><tbody id="evalBody"></tbody></table></div>
+  <div class="grid3" style="margin-top:16px">
+    <div class="card"><div class="mono" style="font-size:26px;font-weight:600">0.996</div><div class="note">Room mapping F1 (5,762 true pairs), vs <b>0.21</b> for fuzzy room-name matching</div></div>
+    <div class="card"><div class="mono" style="font-size:26px;font-weight:600">0.996</div><div class="note">Sightseeing product matching F1; attraction resolved correctly for 100% of 184 products</div></div>
+    <div class="card"><div class="mono" style="font-size:26px;font-weight:600">25–65%</div><div class="note">of rooms sold by 2+ offers where the cheapest headline is not the best like-for-like deal (avg ₹1.1k–1.4k). Depends on stated, editable assumptions.</div></div>
+  </div>
+</section>
+
+<section id="bugs">
+  <h2>Bugs our own tests caught</h2>
+  <p class="sub">We think this matters more than any accuracy number: the tests found real defects, and each fix is now guarded by a test.</p>
+  <div class="card">
+    <div class="bug"><div class="k">Unit test</div><div><h4>Star ratings leaked into hotel names</h4><p>Sahara Direct writes “Noor Al View Inn 5*”. Our cleaning regex failed on the <span class="mono">*</span>, so a stray “5” stayed in the name and faked a “numbers differ” signal between records of the same hotel.</p><div class="ba"><span class="pill bad">Dubai held-out F1 0.9967</span><span class="pill ok">after fix 0.9987</span></div></div></div>
+    <div class="bug"><div class="k">Stress test</div><div><h4>Unreadable room names were merged together</h4><p>We added a supplier style the room grammar had never seen (French, marketing names, “Room Type C”). The first run produced 644 wrong merges: partly-read names were grouped on the parts we could read. Fix 1 isolates any name missing a class or bed (158 left). Fix 2 also isolates names with leftover unread words, and orders patterns longest-first so “river” isn't read as “riv” + “er”.</p><div class="ba"><span class="pill bad">644 wrong merges</span><span class="pill warn">158</span><span class="pill ok">0</span></div></div></div>
+    <div class="bug"><div class="k">Determinism test</div><div><h4>Results changed between identical runs</h4><p>Python randomises set ordering per process, which changed which rare words were used for blocking and the order of floating-point sums. Same code, same data, different F1. Fixed with stable tie-breaks and ordered sums; a test now runs the whole pipeline twice and requires identical rankings.</p><div class="ba"><span class="pill bad">F1 varied run to run</span><span class="pill ok">identical across hash seeds</span></div></div></div>
+    <div class="bug"><div class="k">Parity test</div><div><h4>Browser and engine must agree to the rupee</h4><p>The prototype re-prices and re-ranks in the browser so the assumption sliders work live. A test runs the JavaScript under Node and compares every like-for-like price and every rank with Python, including Python's banker's rounding, which JavaScript doesn't do by default.</p><div class="ba"><span class="pill ok">3 cities, every offer, exact match</span></div></div></div>
+    <div class="bug"><div class="k">Our mistake</div><div><h4>One failure was the test itself</h4><p>A unit test expected a supplier-risk cost above ₹500; the formula correctly gives ₹370. We fixed the test, not the code, and wrote the arithmetic into it.</p></div></div>
+  </div>
+</section>
+
+<section id="repro">
+  <h2>Reproduce everything</h2>
+  <p class="sub">Seeds are fixed (world 7, feeds 11, offers 23–25, bookings 31, sightseeing 41), the configuration is versioned (<span class="mono">2026.11-r1</span>), and results are identical across runs.</p>
+  <pre>pip install -r requirements.txt
+python scripts/build_data.py     # engine → web/data.js, prints every number on this page (~15 s)
+python -m pytest -q              # 36 tests (~1 min)
+python scripts/stress_test.py    # unseen supplier style + throughput
+uvicorn trueshelf.api:app        # REST API: /api/search, /api/match, /api/l4l, /api/review …</pre>
+  <p class="note" style="margin-top:10px">Source bundle served on this page: SHA-256 <span class="mono" id="sha">computing…</span></p>
+</section>
+
+<section id="code">
+  <h2>Read the code</h2>
+  <p class="sub">Our engine, exactly as it runs in the verification above. (Vendored RapidFuzz files are hidden here; they are unmodified.)</p>
+  <div class="files"><div class="list" id="fileList"></div><pre id="fileView">Loading…</pre></div>
+</section>
+
+<section id="limits">
+  <h2>Honest limits</h2>
+  <div class="grid2">
+    <div class="card"><b>What is real</b><p class="note">The engine, the held-out evaluation protocol, the tests, the failure modes we generate (transliteration, abbreviations, typos, swapped coordinates, sister properties 80–250 m apart, rate-plan words inside room names), and every number on this page.</p></div>
+    <div class="card"><b>What is not yet</b><p class="note">All hotels, suppliers and bookings are synthetic, because teams don't get TBO feeds. Real feeds will be messier. Rupee values in like-for-like pricing are stated assumptions. Ranking impact on conversion is untested. Round 2 starts with a shadow-mode pilot on one city's real feed.</p></div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap">
+  <img src="qr.svg" alt="QR" style="width:96px;height:96px;background:#fff;border-radius:8px;padding:6px">
+  <div><b>Team vortexxx</b> · Raktim Chandra (lead), Nipun Dewangan, Pronov Mazumdar · SRM Institute of Science and Technology<br>raktimchandra26@gmail.com · +91 98322 88101<br><span style="font-size:12.5px">Synthetic data only. Built for TBO VoyageHack 4.0.</span></div>
+</div></footer>
+
+<script>
+(function(){
+"use strict";
+const $=(s)=>document.querySelector(s);
+const esc=(s)=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const CLAIM={f1:0.9955,precision:1.0,false_merges:0,baseline_f1:0.8239,review_pairs:3,listings:169};
+const STEPS=[["load","Load Python, NumPy, SciPy, scikit-learn","Pyodide in your tab, ~35 MB once"],["tests","Run the 19 unit tests","pytest, on our real modules"],["world","Regenerate the synthetic world","580 hotels, 5 suppliers, 1,657 supplier records"],["DXB","Features: Dubai","blocking + 23 signals per pair"],["BKK","Features: Bangkok",""],["PAR","Features: Paris","the held-out city"],["train","Train on Dubai + Bangkok","calibrated gradient boosting"],["eval","Score Paris and cluster","compare with our report"]];
+const sb=$("#steps");
+STEPS.forEach(([k,t,d])=>{sb.insertAdjacentHTML("beforeend",`<li id="st-${k}"><span class="dot"></span><div><div class="t">${t}</div><div class="d">${d}</div></div><span class="s"></span></li>`)});
+const set=(k,state,txt)=>{const li=$("#st-"+k);li.querySelector(".dot").className="dot "+state;li.querySelector(".dot").textContent=state==="ok"?"✓":state==="err"?"!":"";if(txt!==undefined)li.querySelector(".s").textContent=txt;};
+const con=$("#console");const log=(m)=>{con.textContent+="\n"+m;con.scrollTop=con.scrollHeight;};
+const tick=()=>new Promise(r=>setTimeout(r,60));
+let py=null,trained=false,busy=false;
+const PYV="314.0.7";
+function loadScript(src){return new Promise((res,rej)=>{const s=document.createElement("script");s.src=src;s.onload=res;s.onerror=()=>rej(new Error("could not load "+src));document.head.appendChild(s);});}
+async function boot(){
+  if(py) return py;
+  set("load","run","");const t=performance.now();
+  log("Loading Pyodide "+PYV+" from cdn.jsdelivr.net …");
+  await loadScript(`https://cdn.jsdelivr.net/pyodide/v${PYV}/full/pyodide.js`);
+  py=await loadPyodide({indexURL:`https://cdn.jsdelivr.net/pyodide/v${PYV}/full/`,stdout:(s)=>log(s),stderr:(s)=>log(s)});
+  log("Installing numpy, scipy, scikit-learn, pytest …");
+  await py.loadPackage(["numpy","scipy","scikit-learn","pytest"],{messageCallback:(m)=>log(m)});
+  log("Fetching our source bundle …");
+  const bundle=await (await fetch("bundle.json")).json();
+  const FS=py.FS;const root="/home/pyodide/ts";
+  for(const [p,src] of Object.entries(bundle)){const full=root+"/"+p;const dir=full.slice(0,full.lastIndexOf("/"));py.runPython(`import os; os.makedirs(${JSON.stringify(dir)}, exist_ok=True)`);FS.writeFile(full,src);}
+  py.runPython(`import sys; sys.path.insert(0, "${root}"); import verify`);
+  const env=JSON.parse(py.runPython("verify.env()"));
+  $("#envLine").textContent=`Python ${env.python} · NumPy ${env.numpy} · SciPy ${env.scipy} · scikit-learn ${env.sklearn} · RapidFuzz ${env.rapidfuzz}`;
+  log("Environment: "+JSON.stringify(env));
+  set("load","ok",((performance.now()-t)/1000).toFixed(0)+" s");
+  return py;
+}
+async function call(fn){await tick();return JSON.parse(py.runPython(fn));}
+async function runTests(){
+  set("tests","run","");const r=await call("verify.unit_tests()");log(r.log.trim());
+  const m=r.log.match(/(\d+) passed/);set("tests",r.exit===0?"ok":"err",(m?m[1]+" passed · ":"")+r.seconds+" s");
+}
+function showCmp(r){
+  const rows=[["F1",CLAIM.f1.toFixed(4),r.f1.toFixed(4),Math.abs(r.f1-CLAIM.f1)<0.0005],["Precision",CLAIM.precision.toFixed(4),r.precision.toFixed(4),Math.abs(r.precision-CLAIM.precision)<0.0005],["Wrong merges",CLAIM.false_merges,r.false_merges,r.false_merges===CLAIM.false_merges],["Rule baseline F1",CLAIM.baseline_f1.toFixed(4),r.baseline_f1.toFixed(4),Math.abs(r.baseline_f1-CLAIM.baseline_f1)<0.0005],["Pairs sent to review",CLAIM.review_pairs,r.review_pairs,r.review_pairs===CLAIM.review_pairs],["Listings (167 real hotels)",CLAIM.listings,r.listings,r.listings===CLAIM.listings]];
+  $("#cmpBody").innerHTML=rows.map(([k,a,b,ok])=>`<tr><td>${k}</td><td class="r"><b>${a}</b></td><td class="r"><b>${b}</b></td><td>${ok?'<span class="pill ok">match</span>':'<span class="pill warn">differs</span>'}</td></tr>`).join("");
+}
+async function runAll(){
+  if(busy) return;busy=true;$("#runAll").disabled=true;$("#runTests").disabled=true;con.textContent="Starting.";
+  try{
+    await boot();await runTests();
+    set("world","run","");let r=await call("verify.world()");set("world","ok",r.seconds+" s");log(`World: ${r.hotels} hotels, ${r.records} supplier records`);
+    for(const c of ["DXB","BKK","PAR"]){set(c,"run","");r=await call(`verify.features("${c}")`);set(c,"ok",`${r.pairs.toLocaleString("en-IN")} pairs · ${r.seconds} s`);log(`${c}: ${r.records} records → ${r.pairs} candidate pairs (${r.true_pairs} true matches)`);}
+    set("train","run","");r=await call('verify.train("PAR")');set("train","ok",r.seconds+" s");log(`Trained on ${r.trained_on.join(" + ")}: ${r.rows} labelled pairs`);
+    set("eval","run","");r=await call("verify.evaluate()");set("eval","ok",r.seconds+" s");
+    log(`Paris: F1 ${r.f1.toFixed(4)}, precision ${r.precision.toFixed(4)}, ${r.false_merges} wrong merges, ${r.missed_merges} missed; rule baseline F1 ${r.baseline_f1.toFixed(4)} (${r.baseline_false} wrong, ${r.baseline_missed} missed)`);
+    showCmp(r);trained=true;$("#matcher").style.opacity=1;$("#matchBtn").disabled=false;log("Done. The matcher below now uses the model your browser trained.");
+  }catch(e){log("ERROR: "+(e&&e.message?e.message:e));const cur=document.querySelector(".dot.run");if(cur)cur.className="dot err";log("If your network or browser blocks the Python download, the same numbers come from: python scripts/build_data.py");}
+  busy=false;$("#runAll").disabled=false;$("#runTests").disabled=false;
+}
+async function onlyTests(){
+  if(busy) return;busy=true;$("#runAll").disabled=true;$("#runTests").disabled=true;con.textContent="Starting.";
+  try{await boot();await runTests();}catch(e){log("ERROR: "+(e&&e.message?e.message:e));}
+  busy=false;$("#runAll").disabled=false;$("#runTests").disabled=false;
+}
+$("#runAll").onclick=runAll;$("#runTests").onclick=onlyTests;
+
+// ---------- matcher form
+const FIELDS=[["name","Name"],["address","Address"],["phone","Phone"],["lat","Latitude"],["lon","Longitude"],["stars","Stars"]];
+const PRESETS={
+  "Transliteration (should merge)":[{supplier:"ATL",name:"QASR AL TWR INN",address:"12 Al Rigga Rd, Deira",phone:"+97142223333",lat:25.2711,lon:55.3075,stars:4},{supplier:"BLU",name:"Kasr El Tower Inn",address:"12 Al Rigga Road, Deira",phone:"04 222 3333",lat:25.2713,lon:55.3077,stars:4}],
+  "Sister property (should stay apart)":[{supplier:"ATL",name:"SAFFRON CREEK HTL",address:"40 Baniyas Rd, Deira",phone:"+97143331111",lat:25.2690,lon:55.3080,stars:4},{supplier:"MER",name:"Saffron Creek Suites - Dubai",address:"46 Baniyas Road, Deira",phone:"04 333 7777",lat:25.2705,lon:55.3094,stars:4}],
+  "Typos, no phone (goes to review)":[{supplier:"MER",name:"Orchid Court Boutique Hotel - Bangkok",address:"88 Silom Road, Silom",phone:"02 555 0101",lat:13.7286,lon:100.5340,stars:3},{supplier:"ORL",name:"Orchid Ourt Boutique Hotel",address:"Silom Rd, Silom",phone:"",lat:13.7291,lon:100.5346,stars:3}]
+};
+function fill(fs,rec){fs.innerHTML=fs.querySelector("legend").outerHTML+FIELDS.map(([k,l])=>`<label>${l}<input data-k="${k}" value="${esc(rec[k]??"")}"></label>`).join("");fs.dataset.sup=rec.supplier||"ATL";}
+const presetBox=$("#presets");
+Object.keys(PRESETS).forEach((n,i)=>{const b=document.createElement("button");b.className="btn ghost";b.style.padding="6px 10px";b.style.fontSize="12.5px";b.textContent=n;b.onclick=()=>{fill($("#fa"),PRESETS[n][0]);fill($("#fb"),PRESETS[n][1]);$("#matchOut").innerHTML="";};presetBox.appendChild(b);if(i===0)b.click();});
+const readRec=(fs,city)=>{const o={supplier:fs.dataset.sup,city};fs.querySelectorAll("input").forEach(i=>o[i.dataset.k]=i.value.trim()===""?null:i.value.trim());return o;};
+$("#matchBtn").onclick=async()=>{
+  if(!trained) return;
+  const a=readRec($("#fa"),"X"),b=readRec($("#fb"),"X");
+  const lat=parseFloat(a.lat);const city=lat>40?"PAR":lat<20?"BKK":"DXB";a.city=b.city=city;
+  try{
+    const r=JSON.parse(py.runPython(`verify.match(${JSON.stringify(JSON.stringify(a))}, ${JSON.stringify(JSON.stringify(b))})`));
+    const col=r.decision==="merge"?"var(--good)":r.decision==="review"?"var(--warn)":"var(--bad)";
+    $("#matchOut").innerHTML=`<div style="display:flex;justify-content:space-between"><b style="color:${col};text-transform:uppercase;letter-spacing:.05em">${r.decision}</b><span class="mono">p = ${r.p.toFixed(3)}</span></div><div class="pbar"><i style="width:${(100*r.p).toFixed(1)}%;background:${col}"></i></div><div class="why">${r.why.map(w=>`<div><span>${esc(w.label)}</span><span class="mono r" style="color:${w.push>=0?"var(--good)":"var(--bad)"}">${w.push>0?"+":""}${w.push}</span></div>`).join("")}</div>`;
+  }catch(e){$("#matchOut").textContent="Error: "+e.message;}
+};
+
+// ---------- tests + evaluation + code (static, from our own files)
+fetch("tests.json").then(r=>r.json()).then(T=>{
+  $("#testSub").innerHTML=`<b>${T.passed} of ${T.total}</b> passed in ${T.time} s on ${T.timestamp.replace("T"," ").slice(0,16)} UTC. Unit tests cover the deterministic layers; pipeline tests enforce the held-out quality bars; API tests cover the REST service and input validation.`;
+  const groups={};T.tests.forEach(t=>(groups[t.file]=groups[t.file]||[]).push(t));
+  const title={test_units:"Unit (19)",test_pipeline:"Pipeline & parity",test_api:"API"};
+  $("#testGroups").innerHTML=Object.entries(groups).map(([f,ts])=>`<div class="card" style="padding:14px"><b>${title[f]||f}</b><table style="margin-top:6px;font-size:12.5px">${ts.map(t=>`<tr><td>${t.ok?"✅":"❌"} ${esc(t.name.replace(/^test_/,"").replace(/_/g," "))}</td><td class="r mono">${t.time<0.01?"<0.01":t.time.toFixed(2)}s</td></tr>`).join("")}</table></div>`).join("");
+});
+fetch("evidence.json").then(r=>r.json()).then(E=>{
+  const N={DXB:"Dubai",BKK:"Bangkok",PAR:"Paris"};
+  $("#evalBody").innerHTML=["DXB","BKK","PAR"].map(c=>{const e=E[c];return `<tr><td>${N[c]}</td><td class="r mono">${e.listings.raw_records}</td><td class="r mono">${e.listings.true_hotels}</td><td class="r mono"><b>${e.auto.f1.toFixed(4)}</b></td><td class="r mono">${e.auto.precision.toFixed(4)}</td><td class="r mono">${e.auto.false_merges}</td><td class="r mono">${e.baseline.f1.toFixed(4)}</td><td class="r mono">${e.baseline.false_merges}</td><td class="r mono">${e.review_pairs}</td></tr>`;}).join("");
+});
+fetch("bundle.json").then(r=>r.arrayBuffer()).then(async buf=>{
+  try{const h=await crypto.subtle.digest("SHA-256",buf);$("#sha").textContent=[...new Uint8Array(h)].map(b=>b.toString(16).padStart(2,"0")).join("");}catch(e){$("#sha").textContent="(unavailable in this browser)";}
+  const B=JSON.parse(new TextDecoder().decode(buf));
+  const files=Object.keys(B).filter(k=>!k.startsWith("vendor/")).sort((a,b)=>a==="verify.py"?1:b==="verify.py"?-1:a.localeCompare(b));
+  const list=$("#fileList");
+  files.forEach((f,i)=>{const b=document.createElement("button");b.textContent=f;b.onclick=()=>{list.querySelectorAll("button").forEach(x=>x.classList.remove("on"));b.classList.add("on");$("#fileView").textContent=B[f];$("#fileView").scrollTop=0;};list.appendChild(b);if(f==="trueshelf/l4l.py")b.click();});
+});
+})();
+</script>
+</body>
+</html>

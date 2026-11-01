@@ -1,0 +1,224 @@
+{
+"total": 36,
+"passed": 36,
+"time": 65.7,
+"timestamp": "2026-11-01T18:56:02.600119+00:00",
+"tests": [
+{
+"file": "test_api",
+"name": "test_health",
+"time": 0.006,
+"ok": true
+},
+{
+"file": "test_api",
+"name": "test_search_returns_ranked_hotels",
+"time": 21.719,
+"ok": true
+},
+{
+"file": "test_api",
+"name": "test_match_endpoint_merges_obvious_pair_and_separates_sisters",
+"time": 0.027,
+"ok": true
+},
+{
+"file": "test_api",
+"name": "test_input_validation",
+"time": 0.002,
+"ok": true
+},
+{
+"file": "test_api",
+"name": "test_l4l_endpoint",
+"time": 0.003,
+"ok": true
+},
+{
+"file": "test_api",
+"name": "test_review_decision_is_logged",
+"time": 0.006,
+"ok": true
+},
+{
+"file": "test_api",
+"name": "test_static_ui_served",
+"time": 0.01,
+"ok": true
+},
+{
+"file": "test_pipeline",
+"name": "test_held_out_matching_beats_rule_baseline[DXB]",
+"time": 14.556,
+"ok": true
+},
+{
+"file": "test_pipeline",
+"name": "test_held_out_matching_beats_rule_baseline[BKK]",
+"time": 0.0,
+"ok": true
+},
+{
+"file": "test_pipeline",
+"name": "test_held_out_matching_beats_rule_baseline[PAR]",
+"time": 0.0,
+"ok": true
+},
+{
+"file": "test_pipeline",
+"name": "test_review_load_is_small",
+"time": 0.0,
+"ok": true
+},
+{
+"file": "test_pipeline",
+"name": "test_review_queue_is_ordered_by_value_at_risk",
+"time": 0.0,
+"ok": true
+},
+{
+"file": "test_pipeline",
+"name": "test_room_mapping_quality",
+"time": 0.0,
+"ok": true
+},
+{
+"file": "test_pipeline",
+"name": "test_every_offer_has_consistent_l4l",
+"time": 0.005,
+"ok": true
+},
+{
+"file": "test_pipeline",
+"name": "test_platinum_lift_is_bounded",
+"time": 0.0,
+"ok": true
+},
+{
+"file": "test_pipeline",
+"name": "test_pipeline_is_deterministic",
+"time": 27.153,
+"ok": true
+},
+{
+"file": "test_pipeline",
+"name": "test_browser_engine_matches_python",
+"time": 0.356,
+"ok": true
+},
+{
+"file": "test_units",
+"name": "test_reference_product_has_no_adjustment",
+"time": 0.001,
+"ok": true
+},
+{
+"file": "test_units",
+"name": "test_breakfast_lowers_l4l_by_its_value",
+"time": 0.0,
+"ok": true
+},
+{
+"file": "test_units",
+"name": "test_non_refundable_costs_more_than_flexible",
+"time": 0.0,
+"ok": true
+},
+{
+"file": "test_units",
+"name": "test_pay_later_is_worth_money",
+"time": 0.0,
+"ok": true
+},
+{
+"file": "test_units",
+"name": "test_unreliable_supplier_adds_expected_failure_cost",
+"time": 0.0,
+"ok": true
+},
+{
+"file": "test_units",
+"name": "test_components_sum_to_l4l",
+"time": 0.0,
+"ok": true
+},
+{
+"file": "test_units",
+"name": "test_transliteration_and_abbreviation_collapse",
+"time": 0.0,
+"ok": true
+},
+{
+"file": "test_units",
+"name": "test_city_suffix_and_stars_removed",
+"time": 0.0,
+"ok": true
+},
+{
+"file": "test_units",
+"name": "test_type_words_are_kept_apart_from_core",
+"time": 0.0,
+"ok": true
+},
+{
+"file": "test_units",
+"name": "test_typo_inside_type_word_is_repaired",
+"time": 0.0,
+"ok": true
+},
+{
+"file": "test_units",
+"name": "test_swapped_coordinates_are_repaired",
+"time": 0.0,
+"ok": true
+},
+{
+"file": "test_units",
+"name": "test_phone_key_ignores_formatting",
+"time": 0.0,
+"ok": true
+},
+{
+"file": "test_units",
+"name": "test_room_grammar_across_supplier_styles",
+"time": 0.0,
+"ok": true
+},
+{
+"file": "test_units",
+"name": "test_rate_words_in_room_name_are_detected_and_stripped",
+"time": 0.0,
+"ok": true
+},
+{
+"file": "test_units",
+"name": "test_junior_suite_is_not_a_suite",
+"time": 0.0,
+"ok": true
+},
+{
+"file": "test_units",
+"name": "test_thin_evidence_is_shrunk_towards_city_average",
+"time": 0.002,
+"ok": true
+},
+{
+"file": "test_units",
+"name": "test_attraction_alias_resolution",
+"time": 0.0,
+"ok": true
+},
+{
+"file": "test_units",
+"name": "test_experience_atoms",
+"time": 0.0,
+"ok": true
+},
+{
+"file": "test_units",
+"name": "test_unreadable_room_names_are_never_grouped",
+"time": 0.0,
+"ok": true
+}
+]
+}
