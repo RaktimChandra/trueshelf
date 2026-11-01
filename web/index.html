@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TrueShelf: multi-supplier hotel & sightseeing shelves</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="top">
+  <div class="top-inner">
+    <div class="brand">
+      <svg width="26" height="22" viewBox="0 0 26 22" aria-hidden="true"><rect x="1" y="2" width="7" height="3" rx="1.5" fill="#6f8796"/><rect x="10" y="2" width="7" height="3" rx="1.5" fill="#6f8796"/><rect x="19" y="2" width="6" height="3" rx="1.5" fill="#6f8796"/><path d="M4.5 6 L13 13 M13.5 6 L13 13 M22 6 L13 13" stroke="#6f8796" stroke-width="1.2" fill="none"/><rect x="1" y="15" width="24" height="5" rx="2.5" fill="#e8633a"/></svg>
+      TrueShelf <small>multi-supplier optimisation</small>
+    </div>
+    <nav class="tabs" id="tabs"></nav>
+    <div class="top-right">
+      <span class="search-chip" id="searchChip"></span>
+      <select class="select" id="citySel" aria-label="City"></select>
+    </div>
+  </div>
+</header>
+<main class="wrap" id="app"></main>
+<div class="foot">TrueShelf prototype · team vortexxx · VoyageHack 4.0 · all hotels, suppliers and bookings are synthetic · config <span id="cfgv"></span></div>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
