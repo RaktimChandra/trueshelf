@@ -10,14 +10,14 @@
 | Prototype UI (6 screens) + REST API | Done | `web/`, `trueshelf/api.py` |
 | Round 1 deck (cover + 2 content + close), PPTX + PDF | Done, with QR on cover and close | `TrueShelf_vortexxx_VoyageHack4.pptx` |
 | Narrated video (5:36) with QR end card | Done, synthetic voice | `TrueShelf_narrated_video.mp4` |
-| Proof page: re-runs our Paris evaluation in the viewer's browser | Published, **private until you share it** | https://claude.ai/artifact/MFWWqm5Hn7ZVQPgyFcq2k9 |
+| Proof page: re-runs our Paris evaluation in the viewer's browser | Live on GitHub Pages; all QR codes point here | https://raktimchandra.github.io/trueshelf/ |
+| Public GitHub repo with CI (tests run on every push) and an honest roadmap | Done | https://github.com/RaktimChandra/trueshelf · [ROADMAP.md](../ROADMAP.md) |
 
 ## Left, in priority order
-1. **Make the proof page public (5 min, you).** Open the link above on claude.ai → Share → set to anyone with the link. Then scan the QR from your phone in a private/incognito window. If it asks you to log in, it is not public yet. Until this is done, every QR in the deck and video leads to a page judges can't open.
+1. **Scan the QR from your phone** (deck cover, closing slide, or the video end card) and confirm https://raktimchandra.github.io/trueshelf/ opens.
 2. **Run "Run everything" once yourself (5 min, you).** In-browser Python could not be tested from my workspace, which has no internet. The Python side was simulated exactly, the page handles failure gracefully, and the command-line fallback is printed. But open the page on a laptop, press the button, and confirm the "Your browser vs our report" table shows "match". If it fails, tell me the console text.
 3. **Decide on the voice (you).** The narration is synthetic. Either keep it (and say so if asked), record your own voice over `TrueShelf_demo_walkthrough.mp4` using `VIDEO_SCRIPT.md`, or allow huggingface.co and send a 30–60 s sample for a clone.
-4. **Push the code to GitHub (10 min, you).** My GitHub token here is invalid. Unzip `trueshelf_code.zip`, then `git init`, commit, and push to `RaktimChandra/trueshelf`. Round 2 requires a repo, and the finale asks members about their own commits.
-5. **Optional short link.** Approve Vercel team access when I ask, and I'll put `trueshelf-vortexxx.vercel.app` in front of the proof page.
+4. ~~Push the code to GitHub~~ Done. Each teammate should clone it and make their own commits to the part they own.
 6. **Submit on Unstop before 20 Nov, 11:59 PM:** the PDF/PPT plus the video.
 
 ## Weak spots a judge may hit (prepare answers)
