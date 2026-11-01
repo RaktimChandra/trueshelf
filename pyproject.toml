@@ -1,0 +1,13 @@
+[project]
+name = "trueshelf"
+version = "0.1.0"
+description = "Multi-supplier hotel & sightseeing consolidation, like-for-like pricing and ranking (VoyageHack 4.0, team vortexxx)"
+requires-python = ">=3.10"
+dependencies = ["numpy", "scipy", "scikit-learn", "rapidfuzz", "fastapi", "uvicorn", "pydantic>=2"]
+
+[project.optional-dependencies]
+dev = ["pytest", "httpx"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

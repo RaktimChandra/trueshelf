@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+data/review_decisions.jsonl
+*.mp4
+.venv/
