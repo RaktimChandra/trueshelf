@@ -9,7 +9,7 @@
 <style>
 :root{--ink:#13202a;--ink2:#3b4954;--ink3:#6b7680;--paper:#f5f2ec;--card:#fffdf9;--line:#e2dccf;--line2:#ece7dc;--acc:#d9481c;--accs:#fbe6dc;--good:#0f7a63;--goods:#dcf0e9;--warn:#a86a10;--warns:#f8ecd2;--bad:#b3261e;--bads:#f7dedb;
 --serif:"Fraunces",Georgia,serif;--sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,monospace}
-*{box-sizing:border-box}html{scroll-behavior:smooth}
+*{box-sizing:border-box}img,video,table{max-width:100%}.verify>*,.grid2>*,.grid3>*,.files>*,.match-form>*{min-width:0}html{scroll-behavior:smooth}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
 a{color:var(--ink)}
 .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
@@ -80,7 +80,7 @@ pre{background:#0f1a22;color:#e6efe9;font-family:var(--mono);font-size:13px;padd
 footer{background:var(--ink);color:#a9b3ba;margin-top:60px;padding:40px 0}
 footer .wrap{display:flex;gap:28px;align-items:center;flex-wrap:wrap}
 footer b{color:#fff}
-@media(max-width:860px){.stats{grid-template-columns:1fr 1fr}.verify,.grid2,.grid3,.slides,.match-form,.files{grid-template-columns:1fr}.hero h1{font-size:40px}.top-qr{display:none}.bug{grid-template-columns:1fr}.files{height:auto}.files .list{max-height:180px}}
+@media(max-width:860px){.wrap{padding:0 16px}.stats b{font-size:19px;overflow-wrap:anywhere}.stats div{padding:12px}.hero p.lede{font-size:17px}h2{font-size:26px}.card{padding:14px}table{font-size:12.5px}.card{overflow-x:auto}pre{font-size:11.5px;white-space:pre-wrap;word-break:break-word}.console{height:200px}.steps .s{white-space:normal;text-align:right}.cmp th,.cmp td{padding:6px}.files pre{height:360px}nav.toc .wrap{padding-left:8px}.stats{grid-template-columns:1fr 1fr}.verify,.grid2,.grid3,.slides,.match-form,.files{grid-template-columns:1fr}.hero h1{font-size:40px}.top-qr{display:none}.bug{grid-template-columns:1fr}.files{height:auto}.files .list{max-height:180px}}
 </style>
 </head>
 <body>
@@ -183,7 +183,7 @@ python scripts/build_data.py     # engine → web/data.js, prints every number o
 python -m pytest -q              # 36 tests (~1 min)
 python scripts/stress_test.py    # unseen supplier style + throughput
 uvicorn trueshelf.api:app        # REST API: /api/search, /api/match, /api/l4l, /api/review …</pre>
-  <p class="note" style="margin-top:10px">Source bundle served on this page: SHA-256 <span class="mono" id="sha">computing…</span></p>
+  <p class="note" style="margin-top:10px">Source bundle served on this page: SHA-256 <span class="mono" id="sha" style="overflow-wrap:anywhere;word-break:break-all">computing…</span></p>
 </section>
 
 <section id="code">
